@@ -1,0 +1,23 @@
+
+Your search result page : {{ query }} 
+{% load books_tags %}
+
+{% if books %}
+    {% for book in books %}
+        <h1>{{ book.title }}</h1>
+        {% for author in book.authors.all %}
+            <p>{{ author.full_name }}</p>
+            <p>{% books_for_author author as a_books %}</p>
+            {% for nbook in a_books %}
+                <p>{{ nbook.title }}</p>
+                <p>{{ 'kiron'|test:'mala' }}</p>
+                <p style="color:{% cycle 'blue' 'green' %}">{{ nbook.publisher }}</p>{% cycle '<hr>' '' %}
+            {% endfor %}
+            
+
+        {% endfor %}
+    {% endfor %}
+{% else %}
+    <p>No books matched your search criteria.</p> 
+{% endif %}
+{% lorem 150 w random %} 
